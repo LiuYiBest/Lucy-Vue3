@@ -1,3 +1,3 @@
 it("init",() => {
-    export(true).toBe(true);
+    expect(true).toBe(true);
 })
