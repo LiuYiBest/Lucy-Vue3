@@ -1,3 +1,5 @@
+import { reactive } from "../reactive";
+
 describe("effect",()=>{
     it.skip('happy path',()=>{
         const user = reactive({
