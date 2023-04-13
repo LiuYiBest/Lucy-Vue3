@@ -7,6 +7,9 @@ class ReactiveEffect{
         activeEffect = this;  //获取当前的实例对象
         return this._fn();
     }
+    stop(){
+        
+    }
 }
 
 const targeMap = new Map();
@@ -42,9 +45,14 @@ export function trigger(target,key){
 let activeEffect;
 export function effect(fn,options:any={}){
     // fn
-    const scheduler = options.scheduler;
-    const _effect = new ReactiveEffect(fn,scheduler);
+    const _effect = new ReactiveEffect(fn,options.scheduler);
     _effect.run()
 
-    return _effect.run.bind(_effect)
+    const runner:any = _effect.run.bind(_effect)
+    runner.effect = _effect
+    return runner;
+}
+
+export function stop(runner){
+    runner.effect.stop()
 }

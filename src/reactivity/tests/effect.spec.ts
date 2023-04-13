@@ -1,4 +1,4 @@
-import { effect } from "../effect";
+import { effect,stop } from "../effect";
 import { reactive } from "../reactive";
 
 describe("effect",()=>{
