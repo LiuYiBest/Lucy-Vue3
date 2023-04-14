@@ -1,15 +1,23 @@
 class ReactiveEffect{
     private _fn:any;
+    deps = []
     constructor(fn,public scheduler?){
         this._fn = fn;
+        this.scheduler = scheduler;
     }
     run(){
         activeEffect = this;  //获取当前的实例对象
         return this._fn();
     }
     stop(){
-        
+        cleanupEffect(this)
     }
+}
+
+function cleanupEffect(effect){
+    effect.deps.forEach((dep:any )=>{
+        dep.delete(effect);
+    })
 }
 
 const targeMap = new Map();
