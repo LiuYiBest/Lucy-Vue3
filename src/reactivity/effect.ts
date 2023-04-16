@@ -1,6 +1,7 @@
 class ReactiveEffect{
     private _fn:any;
     deps = []
+    active =true;
     constructor(fn,public scheduler?){
         this._fn = fn;
         this.scheduler = scheduler;
@@ -10,7 +11,11 @@ class ReactiveEffect{
         return this._fn();
     }
     stop(){
-        cleanupEffect(this)
+        // active状态
+        if(this.active){
+            cleanupEffect(this)
+            this.active = false;
+        }
     }
 }
 
