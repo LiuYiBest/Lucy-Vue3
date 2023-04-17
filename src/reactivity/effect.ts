@@ -1,6 +1,7 @@
 class ReactiveEffect{
     private _fn:any;
     deps = []
+    onStop?:()=>void;
     active =true;
     constructor(fn,public scheduler?){
         this._fn = fn;
@@ -14,6 +15,9 @@ class ReactiveEffect{
         // active状态
         if(this.active){
             cleanupEffect(this)
+            if(this.onStop){
+                this.onStop();
+            }
             this.active = false;
         }
     }
@@ -59,6 +63,9 @@ let activeEffect;
 export function effect(fn,options:any={}){
     // fn
     const _effect = new ReactiveEffect(fn,options.scheduler);
+    // Object.assign(_effect,options);
+    //extend
+    extends(_effect,options)
     _effect.run()
 
     const runner:any = _effect.run.bind(_effect)
