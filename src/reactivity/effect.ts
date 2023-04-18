@@ -1,3 +1,4 @@
+import { extend } from "./share";
 class ReactiveEffect{
     private _fn:any;
     deps = []
