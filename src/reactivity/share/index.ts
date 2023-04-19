@@ -1,1 +1,1 @@
-export const extends = Object.assign;
+export const extend = Object.assign

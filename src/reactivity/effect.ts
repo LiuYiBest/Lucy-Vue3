@@ -45,6 +45,7 @@ export function track(target,key){
             dep = new Set();
             depsMap.set(key,dep);
         }
+        if(activeEffect) return;
         dep.add(activeEffect)
 }
 
@@ -66,7 +67,7 @@ export function effect(fn,options:any={}){
     const _effect = new ReactiveEffect(fn,options.scheduler);
     // Object.assign(_effect,options);
     //extend
-    extends(_effect,options)
+    extend(_effect,options)
     _effect.run()
 
     const runner:any = _effect.run.bind(_effect)
